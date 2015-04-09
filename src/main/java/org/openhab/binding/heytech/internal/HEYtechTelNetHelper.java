@@ -119,7 +119,7 @@ public class HEYtechTelNetHelper {
 	}
 
 	public void stopShutter(int kanal) {
-		doShutterAction(kanal, "stopp");
+		doShutterAction(kanal, "off");
 	}
 
 	public static void main(String[] args) {
@@ -129,9 +129,9 @@ public class HEYtechTelNetHelper {
 			// telnet.getShutterStatus();
 			int testKanal = 13;
 			// telnet.closeShutter(testKanal);
-			// telnet.openShutter(testKanal);
-			// Thread.sleep(2000);
-			// telnet.stopShutter(testKanal);
+			telnet.openShutter(testKanal);
+			Thread.sleep(2000);
+			telnet.stopShutter(testKanal);
 			System.out.println("DONE");
 		} catch (Exception e) {
 			e.printStackTrace();

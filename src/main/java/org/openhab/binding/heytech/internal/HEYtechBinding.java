@@ -30,11 +30,11 @@ import org.slf4j.LoggerFactory;
  * @author Ansgar@Schulte.com.de
  * @since 1.6.2
  */
-public class heytechBinding extends
+public class HEYtechBinding extends
 		AbstractActiveBinding<HEYtechBindingProvider> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(heytechBinding.class);
+			.getLogger(HEYtechBinding.class);
 
 	/**
 	 * The BundleContext. This is only valid when the bundle is ACTIVE. It is
@@ -56,7 +56,7 @@ public class heytechBinding extends
 
 	private HEYtechTelNetHelper telNetHelper = null;
 
-	public heytechBinding() {
+	public HEYtechBinding() {
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class heytechBinding extends
 			refreshInterval = Long.parseLong(refreshIntervalString);
 		}
 		String host = (String) configuration.get("host");
-		if (StringUtils.isNotBlank(refreshIntervalString)) {
+		if (StringUtils.isNotBlank(host)) {
 			lanAdapterIp = host;
 			telNetHelper = new HEYtechTelNetHelper(lanAdapterIp);
 		}

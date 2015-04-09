@@ -10,11 +10,11 @@
 
 -->
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.openhab.binding.heytech.genericbindingprovider">
-   <implementation class="org.openhab.binding.heytech.internal.heytechGenericBindingProvider"/>
+   <implementation class="org.openhab.binding.heytech.internal.HEYtechGenericBindingProvider"/>
    
    <service>
       <provide interface="org.openhab.model.item.binding.BindingConfigReader"/>
-      <provide interface="org.openhab.binding.heytech.heytechBindingProvider"/>
+      <provide interface="org.openhab.binding.heytech.HEYtechBindingProvider"/>
    </service>
    
 </scr:component>

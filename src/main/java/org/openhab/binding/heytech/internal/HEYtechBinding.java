@@ -30,11 +30,11 @@ import org.slf4j.LoggerFactory;
  * @author Ansgar@Schulte.com.de
  * @since 1.6.2
  */
-public class HEYtechBinding extends
+public class heytechBinding extends
 		AbstractActiveBinding<HEYtechBindingProvider> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(HEYtechBinding.class);
+			.getLogger(heytechBinding.class);
 
 	/**
 	 * The BundleContext. This is only valid when the bundle is ACTIVE. It is
@@ -54,7 +54,9 @@ public class HEYtechBinding extends
 	 */
 	private String lanAdapterIp = null;
 
-	public HEYtechBinding() {
+	private HEYtechTelNetHelper telNetHelper = null;
+
+	public heytechBinding() {
 	}
 
 	/**
@@ -82,6 +84,7 @@ public class HEYtechBinding extends
 		String host = (String) configuration.get("host");
 		if (StringUtils.isNotBlank(refreshIntervalString)) {
 			lanAdapterIp = host;
+			telNetHelper = new HEYtechTelNetHelper(lanAdapterIp);
 		}
 
 		setProperlyConfigured(true);
@@ -170,12 +173,16 @@ public class HEYtechBinding extends
 						"HEYtech ON internalReceiveCommand({},{}) is called!",
 						itemName, command);
 
+				telNetHelper.openShutter(kanal);
+
 			} else if (((org.openhab.core.library.types.OnOffType) command)
 					.equals(OnOffType.OFF)) {
 
 				logger.debug(
 						"HEYtech OFF internalReceiveCommand({},{}) is called!",
 						itemName, command);
+
+				telNetHelper.closeShutter(kanal);
 			}
 
 		} else if (command instanceof org.openhab.core.library.types.UpDownType) {
@@ -183,16 +190,19 @@ public class HEYtechBinding extends
 				logger.debug(
 						"HEYtech DOWN internalReceiveCommand({},{}) is called!",
 						itemName, command);
+				telNetHelper.closeShutter(kanal);
 			} else if (command.equals(UpDownType.UP)) {
 				logger.debug(
 						"HEYtech UP internalReceiveCommand({},{}) is called!",
 						itemName, command);
+				telNetHelper.openShutter(kanal);
 			}
 		} else if (command instanceof org.openhab.core.library.types.StopMoveType) {
 			if (command.equals(StopMoveType.STOP)) {
 				logger.debug(
 						"HEYtech STOP internalReceiveCommand({},{}) is called!",
 						itemName, command);
+				telNetHelper.stopShutter(kanal);
 			}
 		}
 	}
